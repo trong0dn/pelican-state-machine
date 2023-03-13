@@ -67,6 +67,11 @@ No other external dependencies required.
 Download and extract the .zip file. Then import the source code directly and 
 run the program in local IDE.
 
+```console
+> cd C:\..\bin\					// Navigate to the src directory	
+> java -cp . lab4.Main			// Set classpath to run application
+```
+
 ## Questions
 
 1. There is a defect in the design which will annoy law-abiding pedestrians.

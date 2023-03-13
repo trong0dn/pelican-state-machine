@@ -67,6 +67,11 @@ No other external dependencies required.
 Download and extract the .zip file. Then import the source code directly and 
 run the program in local IDE.
 
+```console
+> cd C:\..\bin\					// Navigate to the src directory	
+> java -cp . lab4.Main			// Set classpath to run application
+```
+
 ## Questions
 
 1. There is a defect in the design which will annoy law-abiding pedestrians.
@@ -120,20 +125,20 @@ transition for state pedestriansFlash from vehiclesEnabled to vehiclesGreen.
 
 ## Technical Specifications
 
-`Context.java`
+### Context
 
 The Context of the State Design Pattern.
 
-`State.java`
+### State
 
 State interface for performing state-specific behavior.
 
-`PedestriansEnabled.java`
+### PedestriansEnabled
 
 Implement the State interface, that is, implement (encapsulate) the 
 state-specific behavior for the PedestrianEnabled state.
 
-`VehiclesEnabled.java`
+## VehiclesEnabled
 
 Implement the State interface, that is, implement (encapsulate) the 
 state-specific behavior for the VehicleEnabled state.
