@@ -19,6 +19,7 @@ crossing.
 
 ## Project Structure
 
+```
 PELICAN-STATE-MACHINE
 |   .classpath
 |   .gitignore
@@ -50,6 +51,7 @@ PELICAN-STATE-MACHINE
             PedestriansEnabled.java
             State.java
             VehiclesEnabled.java
+```
             
 ## Requirements and Dependencies
 

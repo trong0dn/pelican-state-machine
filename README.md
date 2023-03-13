@@ -19,6 +19,7 @@ crossing.
 
 ## Project Structure
 
+```
 PELICAN-STATE-MACHINE
 |   .classpath
 |   .gitignore
@@ -50,6 +51,7 @@ PELICAN-STATE-MACHINE
             PedestriansEnabled.java
             State.java
             VehiclesEnabled.java
+```
             
 ## Requirements and Dependencies
 
@@ -116,20 +118,20 @@ transition for state pedestriansFlash from vehiclesEnabled to vehiclesGreen.
 
 ## Technical Specifications
 
-### Context
+`Context.java`
 
 The Context of the State Design Pattern.
 
-### State
+`State.java`
 
 State interface for performing state-specific behavior.
 
-### PedestriansEnabled
+`PedestriansEnabled.java`
 
 Implement the State interface, that is, implement (encapsulate) the 
 state-specific behavior for the PedestrianEnabled state.
 
-## VehiclesEnabled
+`VehiclesEnabled.java`
 
 Implement the State interface, that is, implement (encapsulate) the 
 state-specific behavior for the VehicleEnabled state.
