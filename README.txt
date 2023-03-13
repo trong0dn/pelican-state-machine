@@ -15,6 +15,8 @@ Assignment 4 - State Machines
 The goal is to build a very basic state machine used to control a pedestrian 
 crossing.
 
+![state-machine](/src/state-machine.png)
+
 ## Project Structure
 
 PELICAN-STATE-MACHINE
