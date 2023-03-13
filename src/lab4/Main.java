@@ -5,7 +5,7 @@ package lab4;
  * @author Trong Nguyen
  * @version 1.0, 18/03/23
  */
-public class TestHarness {
+public class Main {
 	public static void main(String[] args) {
 		new Context();
 	}
