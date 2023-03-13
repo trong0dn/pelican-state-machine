@@ -20,14 +20,14 @@ public class Context {
 	 * Context constructor.
 	 */
 	public Context() {
-		vehicleState = new VehiclesEnabled(this);
+		this.vehicleState = new VehiclesEnabled(this);
 	}
 	
 	/**
 	 * Get vehicle state.
 	 * @return State, the vehicle state
 	 */
-	public State getVehicleState() {
+	public VehiclesEnabled getVehicleState() {
 		return this.vehicleState;
 	}
 	
@@ -43,7 +43,7 @@ public class Context {
 	 * Get pedestrian state.
 	 * @return State, the pedestrian state
 	 */
-	public State getPedestrianState() {
+	public PedestriansEnabled getPedestrianState() {
 		return this.pedestrianState;
 	}
 	
@@ -91,8 +91,9 @@ public class Context {
 	 * Pedestrian waiting event use upon state machine transition.
 	 */
 	public void pedestrianWaiting() {
-		System.out.println(PedestrianActions.PEDESTRIAN_WAITING.toString());
+		System.out.println("PEDESTRIAN_WAITING");
 		vehicleState.setIsPedestrianWaiting();
+		vehicleState.vehiclesYellow();
 	}
 	
 	/**
@@ -116,13 +117,18 @@ public class Context {
 		else if (getVehicleActions().equals(VehicleActions.YELLOW)) {
 			// pedestrianEnabled
 			pedestrianState = new PedestriansEnabled(this);
+			// exit/signalVehicles(RED)
+			pedestrianState.signalVehicles(VehicleActions.RED);
+			pedestrianState.pedestriansWalk();
 		}
 		// RED
 		else {
 			// pedestrianFlash
 			if (pedestrianState.getPedestrianFlashCtr() == 0) {
 				System.out.println("[pedestrianFlashCtr==0]");
-				vehicleState = new VehiclesEnabled(this);
+				// exit/signalPedestrians(DONT_WALK)
+				pedestrianState.signalPedestrians(PedestrianActions.DONT_WALK);
+				vehicleState.vehiclesGreen();
 			}
 			else if ((pedestrianState.getPedestrianFlashCtr() & 1) == 0) {
 				System.out.println("[(pedestrianFlashCtr&1)==0]");

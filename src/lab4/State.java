@@ -10,7 +10,7 @@ public interface State {
 	/**
 	 * Pedestrian actions within the state machine.
 	 */
-	public static enum PedestrianActions {DONT_WALK, PEDESTRIAN_WAITING, WALK, BLANK};
+	public static enum PedestrianActions {DONT_WALK, WALK, BLANK};
 	
 	/**
 	 * Vehicle actions within the state machine.

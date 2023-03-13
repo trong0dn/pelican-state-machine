@@ -8,7 +8,7 @@ package lab4;
 public class VehiclesEnabled implements State {
 
 	private Context context;
-	private boolean isPedestrianWaiting;
+	private Boolean isPedestrianWaiting = null;
 
 	/**
 	 * VehiclesEnable state constructor.
@@ -32,9 +32,9 @@ public class VehiclesEnabled implements State {
 		System.out.println(String.format(": entry/SetTimer(10000)"));
 		signalVehicles(VehicleActions.GREEN);
 		System.out.println(String.format(": signalVehicles(%s)", context.getVehicleActions().toString()));
-		isPedestrianWaiting = false;
-		System.out.println(String.format(": isPedestrianWaiting=%s", isPedestrianWaiting));
-		context.pedestrianWaiting();
+		if (isPedestrianWaiting == null) {
+			isPedestrianWaiting = false;
+		}
 		System.out.println(String.format(": isPedestrianWaiting=%s", isPedestrianWaiting));
 		setTimer(10000);
 		System.out.println(String.format(": exit/KillTimer(10000)"));
