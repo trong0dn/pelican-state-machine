@@ -1,3 +1,4 @@
+```
 Carleton University 
 Department of Systems and Computer Engineering 
 SYSC 3303A Real-Time Concurrent Systems Winter 2023 
@@ -6,6 +7,7 @@ Assignment 4 - State Machines
 @author Trong Nguyen
 @version 1.0
 @date 18/03/23
+```
 ---------------------------------------------------------------------------------
 
 # State model of a PELICAN (PEdestrian LIght CONtrolled) crossing
