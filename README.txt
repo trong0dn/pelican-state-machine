@@ -121,7 +121,9 @@ vehicles.
 
 Solution: Modify the initial transition in the vehiclesEnabled state to enter 
 the vehiclesGreenInt substate. In addition, change the target of the TIMEOUT 
-transition for state pedestriansFlash from vehiclesEnabled to vehiclesGreen.
+transition for state pedestriansFlash from pedestriansEnabled to vehiclesGreen.
+Also set isPedestrianWaiting flag to false after transition from vehiclesGreen
+to vehiclesYellow, as the button request has been fulfilled.
 
 ## Technical Specifications
 

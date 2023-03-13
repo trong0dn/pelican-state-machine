@@ -105,7 +105,9 @@ public class Context {
 		if (getVehicleActions().equals(VehicleActions.GREEN)) {
 			if (vehicleState.getIsPedestrianWaiting()) {
 				// vehiclesYellow
-				System.out.println("[isPredestrianWaiting]");
+				System.out.println("[isPedestrianWaiting]");
+				// set PedestrianWaiting to false
+				vehicleState.setIsNotPedestrianWaiting();
 				vehicleState.vehiclesYellow();
 			} else {
 				// vehiclesGreenInt

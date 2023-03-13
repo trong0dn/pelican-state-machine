@@ -78,6 +78,13 @@ public class VehiclesEnabled implements State {
 	}
 	
 	/**
+	 * Set pedestrian to not wait.
+	 */
+	public void setIsNotPedestrianWaiting() {
+		this.isPedestrianWaiting = false;
+	}
+	
+	/**
 	 * Handle pedestrian signal upon pedestrian action.
 	 * @param pedestrianActions PedestrianActions, the pedestrian action
 	 */
