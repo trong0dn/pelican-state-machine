@@ -33,7 +33,7 @@ public class PedestriansEnabled implements State {
 		signalPedestrians(PedestrianActions.WALK);
 		System.out.println(String.format(": signalPedestrians(%s)", context.getPedestrianActions().toString()));
 		setTimer(15000);
-		System.out.println(String.format(": exit/KillTimer(15000)"));
+		System.out.println(String.format(": exit/KillTimer()"));
 		context.timeout();
 	}
 	
@@ -42,7 +42,7 @@ public class PedestriansEnabled implements State {
 	 */
 	public void pedestriansFlash() {
 		System.out.println(String.format("> pedestriansFlash"));
-		System.out.println(String.format(": entry/SetTimer()"));
+		System.out.println(String.format(": entry/SetTimer(1000)"));
 		System.out.println(String.format(": pedestrianFlashCtr=%d", pedestrianFlashCtr));
 		pedestrianFlashCtr--;
 		System.out.println(String.format(": signalPedestrians(%s)", context.getPedestrianActions().toString()));

@@ -37,7 +37,7 @@ public class VehiclesEnabled implements State {
 		}
 		System.out.println(String.format(": isPedestrianWaiting=%s", isPedestrianWaiting));
 		setTimer(10000);
-		System.out.println(String.format(": exit/KillTimer(10000)"));
+		System.out.println(String.format(": exit/KillTimer()"));
 		context.timeout();
 	}
 	
@@ -58,7 +58,7 @@ public class VehiclesEnabled implements State {
 		signalVehicles(VehicleActions.YELLOW);
 		System.out.println(String.format(": signalVehicles(%s)", context.getVehicleActions().toString()));
 		setTimer(3000);
-		System.out.println(String.format(": exit/KillTimer(3000)"));
+		System.out.println(String.format(": exit/KillTimer()"));
 		context.timeout();
 	}
 	
