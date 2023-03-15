@@ -14,8 +14,9 @@ Assignment 4 - State Machines
 
 ## Problem Description
 
-The goal is to build a very basic state machine used to control a pedestrian 
-crossing.
+The goal is to build a basic state machine used to control a pedestrian crossing.
+Based on the following blog post:
+[Introduction to Hierarchical State Machines](https://barrgroup.com/embedded-systems/how-to/introduction-hierarchical-state-machines)
 
 ![state-machine](/src/state-machine.png)
 
@@ -32,29 +33,62 @@ PELICAN-STATE-MACHINE
 +---.settings
 |       org.eclipse.jdt.core.prefs
 |
-+---bin
-|   |   module-info.class
-|   |
-|   \---lab4
-|           Context.class
-|           Main.class
-|           PedestriansEnabled.class
-|           State$PedestrianActions.class
-|           State$VehicleActions.class
-|           State.class
-|           VehiclesEnabled.class
-|
 \---src
     |   module-info.java
+    |   state-machine.png
     |
     \---lab4
-            Context.java
-            Main.java
-            PedestriansEnabled.java
-            State.java
-            VehiclesEnabled.java
+        |   Context.java
+        |   State.java
+        |   TestHarness.java
+        |
+        \---Operational
+            |   Operational.java
+            |
+            +---Pedestrians
+            |       PedestriansEnabled.java
+            |       PedestriansFlash.java
+            |       PedestriansWalk.java
+            |
+            \---Vehicles
+                    VehiclesEnabled.java
+                    VehiclesGreen.java
+                    VehiclesGreenInt.java
+                    VehiclesYellow.java
 ```
-            
+
+`Context.java`
+The Context of the State Design Pattern.
+
+`State.java`
+State interface for performing state-specific behavior.
+
+`Operational.java`
+Superstate of the state machine in operation.
+
+`VehiclesEnabled.java`
+Implements the State interface for state-specific behavior for the 
+VehicleEnabled state and substate of Operational.
+
+`VehiclesGreen.java`
+Implements the State interface and substate of VehiclesEnabled.
+
+`VehiclesGreenInterrupt.java`
+Implements the State interface and substate of VehiclesEnabled.
+
+`VehiclesYellow.java`
+Implements the State interface and substate of VehiclesEnabled.
+
+`PedestriansEnabled.java`
+Implements the State interface for state-specific behavior for the 
+PedestrianEnabled state and substate of Operational.
+
+`PedestrianWalk.java`
+Implements the State interface and substate of PedestriansEnabled.
+
+`PedestrianFlash.java`
+Implements the State interface and substate of PedestriansEnabled.
+     
 ## Requirements and Dependencies
 
 This application was created on Windows 10 OS using Eclipses IDE.
@@ -65,37 +99,17 @@ No other external dependencies required.
 ## Compiling and Running the Application
 
 Download and extract the .zip file. Then import the source code directly and 
-run the program in local IDE.
+run the program in local IDE. Or the file can be executed on Command Prompt
+using the following commands:
 
 ```console
-> cd C:\..\bin\					// Navigate to the src directory	
-> java -cp . lab4.Main			// Set classpath to run application
+> cd C:\..\bin\                          // Navigate to the bin directory	
+> java -cp . lab4.TestHarnes             // Set classpath to run application
 ```
 
-## Questions
+## Questions/Answers
 
-1. There is a defect in the design which will annoy law-abiding pedestrians.
-
-The TIMEOUT event, which triggers the transition from the pedestrianFlash
-state should have signalPedestrian(DONT_WALK) set upon [pedestrianFlashCtr==0],
-as the last signalPedestrian(BLANK) remains. Hence, a BLANK signal upon exit
-from the pedestrianEnabled state means that there is no DONT_WALK signal being
-displayed to the pedestrian during the transition to the vehiclesEnabled state. 
-
-To be compliant with the Liskov substitution principle (LSP), none of the 
-substates of vehiclesEnabled should disable the vehicles or enable the 
-pedestrians. In particular, disabling vehicles (by switching the red light), or 
-enabling the pedestrians (by displaying the WALK signal) in any of the nested 
-states vehiclesGreen or vehiclesYellow would be inconsistent with being in the 
-superstate vehiclesEnabled and would be a violation of the LSP (it will also be 
-a safety hazard in this case).
-
-Solution: Modify the state machine to implement the alternative design of 
-switching the DONT_WALK signal in the exit action from pedestriansEnabled 
-and switching the red light for vehicles in the exit action from 
-vehiclesEnabled.
-
-2. There is second error in the design.
+**1. There is a defect in the design which will annoy law-abiding pedestrians.**
 
 The traffic light system operates by default with vehicles enabled and 
 pedestrians disabled, but pedestrians can activate the traffic light switch 
@@ -119,29 +133,33 @@ vehiclesYellow state (if the isPedestrianWaiting flag is set) or to the
 vehiclesGreenInt state, which represents the interruptible green light for 
 vehicles.
 
-Solution: Modify the initial transition in the vehiclesEnabled state to enter 
-the vehiclesGreenInt substate. In addition, change the target of the TIMEOUT 
-transition for state pedestriansFlash from vehiclesEnabled to vehiclesGreen.
+Solution: Modify the initial TIMEOUT junction point in the vehiclesGreen 
+state to exit upon triggering PEDESTRIAN_WAITING by the vehiclesGreenInt state. 
+This way the pedestrians are not forced waiting the entire time duration when 
+pressing the PEDESTRIAN_WAITING button.
 
-## Technical Specifications
+**2. There is second error in the design.**
 
-### Context
+The TIMEOUT event choice junction point, which triggers the transition from the 
+pedestrianFlash state should have signalPedestrian(DONT_WALK) set upon 
+[pedestrianFlashCtr==0], as the last signalPedestrian(BLANK) remains. Hence, a 
+BLANK signal upon exit from the pedestrianEnabled state means that there is no 
+DONT_WALK signal being displayed to the pedestrian during the transition to the 
+vehiclesEnabled state. This is a safety issue as the pedestrian signal remains
+BLANK while entry into the vehiclesEnabled state.
 
-The Context of the State Design Pattern.
+To be compliant with the Liskov substitution principle (LSP), none of the 
+substates of vehiclesEnabled should disable the vehicles or enable the 
+pedestrians. In particular, disabling vehicles (by switching the red light), or 
+enabling the pedestrians (by displaying the WALK signal) in any of the nested 
+states vehiclesGreen or vehiclesYellow would be inconsistent with being in the 
+superstate vehiclesEnabled and would be a violation of the LSP (it will also be 
+a safety hazard in this case).
 
-### State
-
-State interface for performing state-specific behavior.
-
-### PedestriansEnabled
-
-Implement the State interface, that is, implement (encapsulate) the 
-state-specific behavior for the PedestrianEnabled state.
-
-## VehiclesEnabled
-
-Implement the State interface, that is, implement (encapsulate) the 
-state-specific behavior for the VehicleEnabled state.
+Solution: Modify the state machine to implement the alternative design of 
+switching the DONT_WALK signal in the exit action from pedestriansEnabled 
+and switching the RED signal for vehicles in the exit action from 
+vehiclesEnabled.
 
 ## Disclaimer
 
