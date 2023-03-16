@@ -19,7 +19,7 @@ public class VehiclesGreen implements State {
 	 */
 	public VehiclesGreen(Context context) {
 		this.context = context;
-		context.setVehicleState(this);
+		context.setCurrentState(this);
 		System.out.println(this.getClass().getName());
 		System.out.print("entry/");
 		context.setIsNotPedestrianWaiting();
@@ -41,7 +41,7 @@ public class VehiclesGreen implements State {
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {
-			// PEDESTRIAN_WAITING
+			killTimer();
 		}
 	}
 	

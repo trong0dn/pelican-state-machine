@@ -9,9 +9,9 @@ public class TestHarness {
 	
 	public static void main(String[] args) throws InterruptedException {
 		Context context = new Context();
-		Thread.sleep(12000);
+		Thread.sleep(2000);
 		context.pedestrianWaiting();
-		Thread.sleep(30000);
+		Thread.sleep(10000);
 		context.pedestrianWaiting();
 	}
 

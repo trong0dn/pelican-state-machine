@@ -2,7 +2,7 @@ package lab4.Operational;
 
 import lab4.Context;
 import lab4.State;
-import lab4.Operational.Vehicles.VehiclesGreen;
+import lab4.Operational.Vehicles.VehiclesEnabled;
 
 /**
  * This superstate models the operational state.
@@ -17,7 +17,7 @@ public class Operational implements State {
 	 */
 	public Operational(Context context) {
 		System.out.println(this.getClass().getName());
-		context.setVehicleState(new VehiclesGreen(context));
+		context.setCurrentState(new VehiclesEnabled(context));
 	}
 	
 	/**

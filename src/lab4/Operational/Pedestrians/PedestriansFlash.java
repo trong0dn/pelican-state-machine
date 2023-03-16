@@ -20,7 +20,7 @@ public class PedestriansFlash implements State {
 	 */
 	public PedestriansFlash(Context context) {
 		this.context = context;
-		context.setPedestrianState(this);
+		context.setCurrentState(this);
 		System.out.println(this.getClass().getName());
 		System.out.print("entry/");
 		setTimer(1000);
@@ -42,7 +42,7 @@ public class PedestriansFlash implements State {
 	 * Instance of pedestrianFlash upon re-entry to state.
 	 */
 	public void instance() {
-		context.setPedestrianState(this);
+		context.setCurrentState(this);
 		System.out.println(this.getClass().getName());
 		System.out.print("entry/");
 		setTimer(1000);
@@ -61,7 +61,7 @@ public class PedestriansFlash implements State {
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {
-			// TIMEOUT
+			killTimer();
 		}
 	}
 	

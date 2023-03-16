@@ -20,8 +20,7 @@ import lab4.Operational.Vehicles.VehiclesYellow;
 public class Context implements Runnable { 
 	
 	private Thread thread;
-	private State vehicleState;
-	private State pedestrianState;
+	private State currentState;
 	private VehicleActions vehicleActions;
 	private PedestrianActions pedestrianActions;
 	
@@ -49,8 +48,8 @@ public class Context implements Runnable {
 	 * Pedestrian waiting event use upon state machine transition.
 	 */
 	public void pedestrianWaiting() {
-		if (getVehicleState().getClass().equals(VehiclesGreen.class) || 
-				getVehicleState().getClass().equals(VehiclesGreenInt.class)) {
+		if (getCurrentState().getClass().equals(VehiclesGreen.class) || 
+				getCurrentState().getClass().equals(VehiclesGreenInt.class)) {
 			System.out.println("PEDESTRIAN_WAITING");
 			thread.interrupt();
 			setIsPedestrianWaiting();
@@ -68,8 +67,6 @@ public class Context implements Runnable {
 			if (getIsPedestrianWaiting()) {
 				// vehiclesYellow
 				System.out.println("[isPedestrianWaiting]");
-				// UPDATE: set PedestrianWaiting to false
-				setIsNotPedestrianWaiting();
 				new VehiclesYellow(this);
 			} else {
 				// vehiclesGreenInt
@@ -86,15 +83,13 @@ public class Context implements Runnable {
 		else if (getVehicleActions().equals(VehicleActions.RED)) {
 			// pedestrianFlash
 			State pedestriansFlash;
-			if (getPedestrianState().getClass().equals(PedestriansWalk.class)) {
+			if (getCurrentState().getClass().equals(PedestriansWalk.class)) {
 				pedestriansFlash = new PedestriansFlash(this);
 			} else {
 				// dynamic choice point
-				pedestriansFlash = getPedestrianState();
+				pedestriansFlash = getCurrentState();
 				if ((((PedestriansFlash) pedestriansFlash).getPedestrianFlashCtr()) == 0) {
 					System.out.println("[pedestrianFlashCtr==0]");
-					// UPDATE: exit/signalPedestrians(DONT_WALK)
-					((PedestriansFlash) pedestriansFlash).signalPedestrians(PedestrianActions.DONT_WALK);
 					new VehiclesEnabled(this);
 				}
 				else if (((((PedestriansFlash) pedestriansFlash).getPedestrianFlashCtr()) & 1) == 0) {
@@ -108,41 +103,23 @@ public class Context implements Runnable {
 					((PedestriansFlash) pedestriansFlash).instance();
 				}
 			}
-		} else {
-			System.out.println("vehiclesGreenInt: Prohibited action.");
 		}
 	}
 	
 	/**
-	 * Get vehicle state.
-	 * @return State, the vehicle state
+	 * Get current state.
+	 * @return State, the current state
 	 */
-	public State getVehicleState() {
-		return this.vehicleState;
+	public State getCurrentState() {
+		return this.currentState;
 	}
 	
 	/**
-	 * Set vehicle state.
-	 * @param vehicleState State, the vehicle state
+	 * Set the current state.
+	 * @param currentState State, the current state
 	 */
-	public void setVehicleState(State vehicleState) {
-		this.vehicleState = vehicleState;
-	}
-	
-	/**
-	 * Get pedestrian state.
-	 * @return State, the pedestrian state
-	 */
-	public State getPedestrianState() {
-		return this.pedestrianState;
-	}
-	
-	/**
-	 * Set pedestrian state.
-	 * @param pedestrianState State, the pedestrian state
-	 */
-	public void setPedestrianState(State pedestrianState) {
-		this.pedestrianState = pedestrianState;
+	public void setCurrentState(State currentState) {
+		this.currentState = currentState;
 	}
 	
 	/**

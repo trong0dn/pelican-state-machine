@@ -19,13 +19,11 @@ public class VehiclesGreenInt implements State {
 	 */
 	public VehiclesGreenInt(Context context) {
 		this.context = context;
-		context.setVehicleState(this);
+		context.setCurrentState(this);
 		System.out.println(this.getClass().getName());
 		while (!context.getIsPedestrianWaiting()) {
 			setTimer(100);
 		}
-		// UPDATE: set PedestrianWaiting to false
-		context.setIsNotPedestrianWaiting();
 		killTimer();
 	}
 
@@ -38,7 +36,7 @@ public class VehiclesGreenInt implements State {
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {
-			// PEDESTRIAN_WAITING
+			killTimer();
 		}
 	}
 	
@@ -47,7 +45,6 @@ public class VehiclesGreenInt implements State {
 	 */
 	@Override
 	public void killTimer() {
-		System.out.println(String.format("killTimer()"));
 		new VehiclesYellow(context);
 	}
 

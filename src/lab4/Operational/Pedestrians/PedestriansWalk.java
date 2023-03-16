@@ -19,7 +19,7 @@ public class PedestriansWalk implements State {
 	 */
 	public PedestriansWalk(Context context) {
 		this.context = context;
-		context.setPedestrianState(this);
+		context.setCurrentState(this);
 		System.out.println(this.getClass().getName());
 		System.out.print("entry/");
 		signalPedestrians(PedestrianActions.WALK);
@@ -38,7 +38,7 @@ public class PedestriansWalk implements State {
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {
-			// TIMEOUT
+			killTimer();
 		}
 	}
 	

@@ -19,11 +19,11 @@ public class VehiclesYellow implements State {
 	 */
 	public VehiclesYellow(Context context) {
 		this.context = context;
-		context.setVehicleState(this);
+		context.setCurrentState(this);
 		System.out.println(this.getClass().getName());
 		System.out.print("entry/");
-		setTimer(3000);
 		signalVehicles(VehicleActions.YELLOW);
+		setTimer(3000);
 		System.out.print("exit/");
 		killTimer();
 	}
@@ -38,7 +38,7 @@ public class VehiclesYellow implements State {
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {
-			// TIMEOUT
+			killTimer();
 		}
 	}
 	
