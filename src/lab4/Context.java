@@ -7,6 +7,7 @@ import lab4.Operational.Pedestrians.PedestriansEnabled;
 import lab4.Operational.Pedestrians.PedestriansFlash;
 import lab4.Operational.Pedestrians.PedestriansWalk;
 import lab4.Operational.Vehicles.VehiclesEnabled;
+import lab4.Operational.Vehicles.VehiclesGreen;
 import lab4.Operational.Vehicles.VehiclesGreenInt;
 import lab4.Operational.Vehicles.VehiclesYellow;
 
@@ -16,8 +17,9 @@ import lab4.Operational.Vehicles.VehiclesYellow;
  * @author Trong Nguyen
  * @version 1.0, 18/03/23
  */
-public class Context { 
+public class Context implements Runnable { 
 	
+	private Thread thread;
 	private State vehicleState;
 	private State pedestrianState;
 	private VehicleActions vehicleActions;
@@ -30,6 +32,16 @@ public class Context {
 	 * Constructor for Context.
 	 */
 	public Context() {
+		this.thread = new Thread(this);
+		thread.start();
+	}
+	
+	/**
+	 * Runnable thread for Context.
+	 * @see java.lang.Runnable#run()
+	 */
+	@Override
+	public void run() {
 		new Operational(this);
 	}
 	
@@ -37,9 +49,12 @@ public class Context {
 	 * Pedestrian waiting event use upon state machine transition.
 	 */
 	public void pedestrianWaiting() {
-		System.out.println("PEDESTRIAN_WAITING");
-		setIsPedestrianWaiting();
-		new VehiclesYellow(this);
+		if (getVehicleState().getClass().equals(VehiclesGreen.class) || 
+				getVehicleState().getClass().equals(VehiclesGreenInt.class)) {
+			System.out.println("PEDESTRIAN_WAITING");
+			thread.interrupt();
+			setIsPedestrianWaiting();
+		}
 	}
 	
 	/**
@@ -68,7 +83,7 @@ public class Context {
 			new PedestriansEnabled(this);
 		}
 		// RED
-		else {
+		else if (getVehicleActions().equals(VehicleActions.RED)) {
 			// pedestrianFlash
 			State pedestriansFlash;
 			if (getPedestrianState().getClass().equals(PedestriansWalk.class)) {
@@ -93,6 +108,8 @@ public class Context {
 					((PedestriansFlash) pedestriansFlash).instance();
 				}
 			}
+		} else {
+			System.out.println("vehiclesGreenInt: Prohibited action.");
 		}
 	}
 	

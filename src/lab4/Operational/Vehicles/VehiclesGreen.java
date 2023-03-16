@@ -22,12 +22,10 @@ public class VehiclesGreen implements State {
 		context.setVehicleState(this);
 		System.out.println(this.getClass().getName());
 		System.out.print("entry/");
-		setTimer(10000);
+		context.setIsNotPedestrianWaiting();
 		signalVehicles(VehicleActions.GREEN);
-		if (!context.getIsPedestrianWaiting()) {
-			context.setIsNotPedestrianWaiting();
-		}
-		System.out.println(String.format(": isPedestrianWaiting=%s", 
+		setTimer(10000);
+		System.out.println(String.format("isPedestrianWaiting=%s", 
 				context.getIsPedestrianWaiting()));
 		System.out.print("exit/");
 		killTimer();
@@ -43,7 +41,7 @@ public class VehiclesGreen implements State {
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			// PEDESTRIAN_WAITING
 		}
 	}
 	
@@ -73,7 +71,7 @@ public class VehiclesGreen implements State {
 	@Override
 	public void signalVehicles(VehicleActions vehicleActions) {
 		context.setVehicleActions(vehicleActions);
-		System.out.println(String.format(": signalVehicles(%s)", 
+		System.out.println(String.format("signalVehicles(%s)", 
 				context.getVehicleActions().toString()));		
 	}
 

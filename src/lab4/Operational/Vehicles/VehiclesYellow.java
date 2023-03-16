@@ -38,7 +38,7 @@ public class VehiclesYellow implements State {
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			// TIMEOUT
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class VehiclesYellow implements State {
 	@Override
 	public void signalVehicles(VehicleActions vehicleActions) {
 		context.setVehicleActions(vehicleActions);
-		System.out.println(String.format(": signalVehicles(%s)", 
+		System.out.println(String.format("signalVehicles(%s)", 
 				context.getVehicleActions().toString()));		
 	}
 

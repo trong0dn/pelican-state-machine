@@ -22,8 +22,8 @@ public class PedestriansWalk implements State {
 		context.setPedestrianState(this);
 		System.out.println(this.getClass().getName());
 		System.out.print("entry/");
-		setTimer(15000);
 		signalPedestrians(PedestrianActions.WALK);
+		setTimer(15000);
 		System.out.print("exit/");
 		killTimer();
 	}
@@ -38,7 +38,7 @@ public class PedestriansWalk implements State {
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			// TIMEOUT
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class PedestriansWalk implements State {
 	@Override
 	public void signalPedestrians(PedestrianActions pedestrianActions) {
 		this.context.setPedestrianActions(pedestrianActions);
-		System.out.println(String.format(": signalPedestrians(%s)", 
+		System.out.println(String.format("signalPedestrians(%s)", 
 				context.getPedestrianActions().toString()));
 	}
 

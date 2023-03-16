@@ -7,8 +7,12 @@ package lab4;
  */
 public class TestHarness {
 	
-	public static void main(String[] args) {
-		new Context();
+	public static void main(String[] args) throws InterruptedException {
+		Context context = new Context();
+		Thread.sleep(12000);
+		context.pedestrianWaiting();
+		Thread.sleep(30000);
+		context.pedestrianWaiting();
 	}
 
 }

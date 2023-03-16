@@ -61,7 +61,7 @@ public class PedestriansFlash implements State {
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			// TIMEOUT
 		}
 	}
 	

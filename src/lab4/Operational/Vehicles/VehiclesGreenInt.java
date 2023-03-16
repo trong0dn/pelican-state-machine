@@ -11,14 +11,22 @@ import lab4.State;
  */
 public class VehiclesGreenInt implements State {
 	
+	Context context;
+	
 	/**
 	 * VehiclesGreenInt state constructor.
 	 * @param context Context, the context of the state.
 	 */
 	public VehiclesGreenInt(Context context) {
+		this.context = context;
 		context.setVehicleState(this);
 		System.out.println(this.getClass().getName());
-		context.pedestrianWaiting();
+		while (!context.getIsPedestrianWaiting()) {
+			setTimer(100);
+		}
+		// UPDATE: set PedestrianWaiting to false
+		context.setIsNotPedestrianWaiting();
+		killTimer();
 	}
 
 	/**
@@ -27,17 +35,20 @@ public class VehiclesGreenInt implements State {
 	 */
 	@Override
 	public void setTimer(int timer) {
-		// TODO Auto-generated method stub
-		
+		try {
+			Thread.sleep(timer);
+		} catch (InterruptedException e) {
+			// PEDESTRIAN_WAITING
+		}
 	}
-
+	
 	/**
 	 * Invoke context timeout upon state exit.
 	 */
 	@Override
 	public void killTimer() {
-		// TODO Auto-generated method stub
-		
+		System.out.println(String.format("killTimer()"));
+		new VehiclesYellow(context);
 	}
 
 	/**
