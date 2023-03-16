@@ -104,7 +104,7 @@ using the following commands:
 
 ```console
 > cd C:\..\bin\                          // Navigate to the bin directory	
-> java -cp . lab4.TestHarnes             // Set classpath to run application
+> java -cp . lab4.TestHarness            // Set classpath to run application
 ```
 
 ## Questions/Answers
