@@ -20,14 +20,15 @@ public class VehiclesGreen implements State {
 	public VehiclesGreen(Context context) {
 		this.context = context;
 		context.setCurrentState(this);
-		System.out.println(this.getClass().getName());
-		System.out.print("entry/");
+		System.out.print("STATE: ");
+		System.out.println(this.getClass().getSimpleName());
+		System.out.print(":    entry/");
 		context.setIsNotPedestrianWaiting();
 		signalVehicles(VehicleActions.GREEN);
 		setTimer(10000);
-		System.out.println(String.format("isPedestrianWaiting=%s", 
+		System.out.println(String.format(":    isPedestrianWaiting=%s", 
 				context.getIsPedestrianWaiting()));
-		System.out.print("exit/");
+		System.out.print(":    exit/");
 		killTimer();
 	}
 	
@@ -37,7 +38,7 @@ public class VehiclesGreen implements State {
 	 */
 	@Override
 	public void setTimer(int timer) {
-		System.out.println(String.format("setTimer(%d)", timer));
+		System.out.println(String.format(":    setTimer(%d)", timer));
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {
@@ -50,7 +51,7 @@ public class VehiclesGreen implements State {
 	 */
 	@Override
 	public void killTimer() {
-		System.out.println(String.format("killTimer()"));
+		System.out.println(String.format(":    killTimer()"));
 		context.timeout();
 	}
 	

@@ -20,7 +20,8 @@ public class VehiclesGreenInt implements State {
 	public VehiclesGreenInt(Context context) {
 		this.context = context;
 		context.setCurrentState(this);
-		System.out.println(this.getClass().getName());
+		System.out.print("STATE: ");
+		System.out.println(this.getClass().getSimpleName());
 		while (!context.getIsPedestrianWaiting()) {
 			setTimer(100);
 		}

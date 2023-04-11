@@ -16,7 +16,8 @@ public class Operational implements State {
 	 * @param context Context
 	 */
 	public Operational(Context context) {
-		System.out.println(this.getClass().getName());
+		System.out.print("STATE: ");
+		System.out.println(this.getClass().getSimpleName());
 		context.setCurrentState(new VehiclesEnabled(context));
 	}
 	

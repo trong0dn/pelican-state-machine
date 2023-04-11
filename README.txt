@@ -1,12 +1,7 @@
 ```
-Carleton University 
-Department of Systems and Computer Engineering 
-SYSC 3303A Real-Time Concurrent Systems Winter 2023 
-Assignment 4 - State Machines 
-
-@author Trong Nguyen
+@author trong0dn
 @version 1.0
-@date 18/03/23
+@date 21/03/23
 ```
 ---------------------------------------------------------------------------------
 
@@ -120,7 +115,10 @@ flashing stops, vehicles are given a green light, and the cycle repeats.
 However, the traffic lights do not respond to the PEDESTRIAN_WAITING event 
 immediately after this cycle. The system remembers that the button was pushed 
 and ensures that vehicles receive a minimum of several seconds of green light 
-before the cycle is repeated.
+before the cycle is repeated. For instance, a law abiding citizen will not walk
+during a pedestrianFlash states and will press the PEDESTRIAN_WAITING button.
+This will wait until all the transitions and states until vehiclesGreen TIMEOUT
+to be recognized.
 
 The state model used in the system ensures the minimum green light time for 
 vehicles by incorporating two states, vehiclesGreen and vehiclesGreenInt, and 

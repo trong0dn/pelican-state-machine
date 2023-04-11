@@ -19,8 +19,9 @@ public class VehiclesEnabled implements State {
 	public VehiclesEnabled(Context context) {
 		this.context = context;
 		context.setCurrentState(this);
-		System.out.println(this.getClass().getName());
-		System.out.print("entry/");
+		System.out.print("STATE: ");
+		System.out.println(this.getClass().getSimpleName());
+		System.out.print(":    entry/");
 		signalPedestrians(PedestrianActions.DONT_WALK);
 		context.setCurrentState(new VehiclesGreen(context));
 	}

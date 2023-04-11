@@ -20,11 +20,12 @@ public class VehiclesYellow implements State {
 	public VehiclesYellow(Context context) {
 		this.context = context;
 		context.setCurrentState(this);
-		System.out.println(this.getClass().getName());
-		System.out.print("entry/");
+		System.out.print("STATE: ");
+		System.out.println(this.getClass().getSimpleName());
+		System.out.print(":    entry/");
 		signalVehicles(VehicleActions.YELLOW);
 		setTimer(3000);
-		System.out.print("exit/");
+		System.out.print(":    exit/");
 		killTimer();
 	}
 	
@@ -34,7 +35,7 @@ public class VehiclesYellow implements State {
 	 */
 	@Override
 	public void setTimer(int timer) {
-		System.out.println(String.format("setTimer(%d)", timer));
+		System.out.println(String.format(":    setTimer(%d)", timer));
 		try {
 			Thread.sleep(timer);
 		} catch (InterruptedException e) {

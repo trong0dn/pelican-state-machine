@@ -1,3 +1,4 @@
+
 package lab4;
 
 import lab4.State.PedestrianActions;
@@ -48,11 +49,12 @@ public class Context implements Runnable {
 	 * Pedestrian waiting event use upon state machine transition.
 	 */
 	public void pedestrianWaiting() {
+		System.out.println("### PEDESTRIAN_WAITING ###");
+		setIsPedestrianWaiting();
+		// Check if pedestrianWaiting button is pressed during vehiclesGreen state then interrupt.
 		if (getCurrentState().getClass().equals(VehiclesGreen.class) || 
 				getCurrentState().getClass().equals(VehiclesGreenInt.class)) {
-			System.out.println("PEDESTRIAN_WAITING");
 			thread.interrupt();
-			setIsPedestrianWaiting();
 		}
 	}
 	
@@ -60,17 +62,17 @@ public class Context implements Runnable {
 	 * Timeout event use upon state machine transition.
 	 */
 	public void timeout() {
-		System.out.println("TIMEOUT");
+		System.out.println("> TIMEOUT");
 		// GREEN
 		if (getVehicleActions().equals(VehicleActions.GREEN)) {
 			// junction point
 			if (getIsPedestrianWaiting()) {
 				// vehiclesYellow
-				System.out.println("[isPedestrianWaiting]");
+				System.out.println(":    [isPedestrianWaiting]");
 				new VehiclesYellow(this);
 			} else {
 				// vehiclesGreenInt
-				System.out.println("[else]");
+				System.out.println(":    [else]");
 				new VehiclesGreenInt(this);
 			}
 		}
@@ -89,16 +91,17 @@ public class Context implements Runnable {
 				// dynamic choice point
 				pedestriansFlash = getCurrentState();
 				if ((((PedestriansFlash) pedestriansFlash).getPedestrianFlashCtr()) == 0) {
-					System.out.println("[pedestrianFlashCtr==0]");
+					((PedestriansFlash) pedestriansFlash).signalPedestrians(PedestrianActions.DONT_WALK);
+					System.out.println(":    [pedestrianFlashCtr==0]");
 					new VehiclesEnabled(this);
 				}
 				else if (((((PedestriansFlash) pedestriansFlash).getPedestrianFlashCtr()) & 1) == 0) {
-					System.out.println("[(pedestrianFlashCtr&1)==0]");
+					System.out.println(":    [(pedestrianFlashCtr&1)==0]");
 					((PedestriansFlash) pedestriansFlash).signalPedestrians(PedestrianActions.DONT_WALK);
 					((PedestriansFlash) pedestriansFlash).instance();
 				} 
 				else {
-					System.out.println("[else]");
+					System.out.println(":    [else]");
 					((PedestriansFlash) pedestriansFlash).signalPedestrians(PedestrianActions.BLANK);
 					((PedestriansFlash) pedestriansFlash).instance();
 				}

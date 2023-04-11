@@ -19,8 +19,9 @@ public class PedestriansEnabled implements State {
 	public PedestriansEnabled(Context context) {
 		this.context = context;
 		context.setCurrentState(this);
-		System.out.println(this.getClass().getName());
-		System.out.print("entry/");
+		System.out.print("STATE: ");
+		System.out.println(this.getClass().getSimpleName());
+		System.out.print(":    entry/");
 		signalVehicles(VehicleActions.RED);
 		context.setCurrentState(new PedestriansWalk(context));
 	}

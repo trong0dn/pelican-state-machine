@@ -21,12 +21,13 @@ public class PedestriansFlash implements State {
 	public PedestriansFlash(Context context) {
 		this.context = context;
 		context.setCurrentState(this);
-		System.out.println(this.getClass().getName());
-		System.out.print("entry/");
+		System.out.print("STATE: ");
+		System.out.println(this.getClass().getSimpleName());
+		System.out.print(":    entry/");
 		setTimer(1000);
 		pedestrianFlashCtr = 7;
-		System.out.println(String.format("pedestrianFlashCtr=%d", pedestrianFlashCtr));
-		System.out.print("exit/");
+		System.out.println(String.format(":    pedestrianFlashCtr=%d", pedestrianFlashCtr));
+		System.out.print(":    exit/");
 		killTimer();
 	}
 	
@@ -43,11 +44,12 @@ public class PedestriansFlash implements State {
 	 */
 	public void instance() {
 		context.setCurrentState(this);
-		System.out.println(this.getClass().getName());
-		System.out.print("entry/");
+		System.out.print("STATE: ");
+		System.out.println(this.getClass().getSimpleName());
+		System.out.print(":    entry/");
 		setTimer(1000);
-		System.out.println(String.format("pedestrianFlashCtr=%d", pedestrianFlashCtr));
-		System.out.print("exit/");
+		System.out.println(String.format(":    pedestrianFlashCtr=%d", pedestrianFlashCtr));
+		System.out.print(":    exit/");
 		killTimer();
 	}
 	
@@ -82,7 +84,7 @@ public class PedestriansFlash implements State {
 	@Override
 	public void signalPedestrians(PedestrianActions pedestrianActions) {
 		this.context.setPedestrianActions(pedestrianActions);
-		System.out.println(String.format("signalPedestrians(%s)", 
+		System.out.println(String.format(":    signalPedestrians(%s)", 
 				context.getPedestrianActions().toString()));
 	}
 	
